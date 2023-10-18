@@ -1,7 +1,12 @@
+
 import random
+from .utils import Card
+
+""" CLASSES => provides a way of bundling data and functionality together. 
+
+"""
 
 class Deck:
-    """  """
     def __init__(self):
         
         self.cards = []
@@ -25,43 +30,40 @@ class Deck:
                     
             ]
 
+
         for suit in suits:
             """ do another loop for ranks """
             for rank in ranks:
-                suit_rank_collection = [ suit, rank]
-                self.cards.append(suit_rank_collection)
+
+                self.cards.append(Card(suit, rank)) # pass Card instances
         
                 
     def shuffle(self):
-        random.shuffle(self.cards)
-        return self.cards
+        """Shuffle function. A deck with only one card does not need to be shuffled """
+        if len(self.cards) > 0:
+            random.shuffle(self.cards)
+            return self.cards
 
 
     def deal(self,number):
         """ Removed item from the list of shuffled cards """
         
         card_dealt = []
-        
         for x in range(number):
-            card = self.cards.pop()
-            card_dealt.append(card)
+            if len(self.cards) > 0:
+                card = self.cards.pop()
+                card_dealt.append(card)
             
         return card_dealt
 
 
-deck1 = Deck()
-deck2 = Deck()
-
-print(deck1.cards)
-
-deck2.shuffle()
-
-card2 = deck2.cards
-print(card2)
-
-
+class Hand:
+    """ Here, we handle dealer and computer control player throughout of 
+    game."""
+    def __init__(self, dealer=False):
+        self.cards = []
+        self.value = 0 
+        self.dealer = dealer
         
-        
-
-
-
+card = Card('hearts',   {"rank": "7", "value": 7})
+print(card)

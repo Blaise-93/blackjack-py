@@ -1,6 +1,5 @@
 
 import random
-from .utils import Card
 
 """ CLASSES => provides a way of bundling data and functionality together. 
 
@@ -56,7 +55,14 @@ class Deck:
             
         return card_dealt
 
-
+class Card:
+    def __init__(self, suit, rank) :
+        self.suit = suit
+        self.rank = rank
+    
+    def __str__(self) :
+        return f"{self.rank['rank']} of {self.suit}"
+    
 class Hand:
     """ Here, we handle dealer and computer control player throughout of 
     game."""
@@ -65,5 +71,67 @@ class Hand:
         self.value = 0 
         self.dealer = dealer
         
-card = Card('hearts',   {"rank": "7", "value": 7})
-print(card)
+        
+    def add_card(self, card_list):
+        self.cards.extend(card_list)
+        return self.cards
+    
+    def calculate_value(self):
+        self.value = 0
+        self.has_ace = False
+        for card in self.cards:
+            card_value = int(card.rank['value'])
+            self.value += card_value # 11 or 1
+            
+            if card.rank['rank'] == "Ace":
+                self.has_ace = True
+            
+        if self.has_ace and self.value > 21:
+            self.value -= 10 # subtract 10 from the value
+            
+    def get_value(self):
+        """ retrieve each value from the hand when called """
+        self.calculate_value()
+        return self.value
+        
+    def is_blackjack(self):
+        return self.get_value() == 21
+    
+    def display(self, show_all_dealer_card=False):
+        print(f""" {"Dealer's" if self.dealer else "Your"} hand:""")
+        
+        for index, card in enumerate(self.cards):
+            if index == 0 and self.dealer and not show_all_dealer_card\
+                and not self.is_blackjack:
+                return "hidden"
+            
+            print(index, card)
+            
+        if not self.dealer:
+             print("Value:", self.get_value())
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            
+
+        
+        
+
+

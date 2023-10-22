@@ -1,10 +1,11 @@
 class Card:
-    def __init__(self, suit, rank) :
+    def __init__(self, suit, rank):
         self.suit = suit
         self.rank = rank
-    
-    def __str__(self) :
+
+    def __str__(self):
         return f"{self.rank['rank']} of {self.suit}"
-    
+
+
 card = Card('hearts',   {"rank": "7", "value": 7})
 print(card)

@@ -121,3 +121,5 @@ class Game:
 
 
 game1 = Game()
+
+game1.play()
